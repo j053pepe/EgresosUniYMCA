@@ -14,14 +14,14 @@
 
     <div class="ui-md-12">
       <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
-        
+
         <div class="ui-md-3" *ngIf="docenteId!=''">
           <div class="ui-grid-row">
-              <h4 style="color:grey;"> Docente </h4>
+            <h4 style="color:grey;"> Docente </h4>
             <div class="ui-md-5">
-              <input type="text" [(ngModel)]="docenteId" pInputText readonly >
+              <input #foco autofocus type="text" [(ngModel)]="docenteId" pInputText readonly>
             </div>
-            </div>
+          </div>
         </div>
 
         <p-tabPanel [selected]="tab1" style="border:0px solid !important">
@@ -71,7 +71,7 @@
                   <div class="ui-grid-row" re>
                     <div class="ui-md-10">
                       Nacionalidad
-                      <p-dropdown   [options]="nacional" formControlName="nacionalidad" [autoWidth]="false" (onChange)="ChangeNacionalidad()" [(ngModel)]="slcNacionalidad"></p-dropdown>
+                      <p-dropdown [options]="nacional" formControlName="nacionalidad" [autoWidth]="false" (onChange)="ChangeNacionalidad()" [(ngModel)]="slcNacionalidad"></p-dropdown>
                     </div>
                     <div class="ui-md-2">
                       <br />
@@ -107,10 +107,10 @@
                       </div>
                     </div>
                   </div>
-                  <div class="ui-grid-row" >
+                  <div class="ui-grid-row">
                     <div class="ui-md-6">
                       Fecha de Nacimiento
-                      <p-calendar  [(ngModel)]="date1" [showIcon]="true" formControlName="nacimiento" [locale]="es" dateFormat="dd/mm/yy"></p-calendar>
+                      <p-calendar [(ngModel)]="date1" [showIcon]="true" formControlName="nacimiento" [locale]="es" dateFormat="dd/mm/yy"></p-calendar>
                     </div>
                     <div class="ui-md-2">
                       <br />
@@ -122,7 +122,7 @@
                   <div class="ui-grid-row">
                     <div class="ui-md-10">
                       CURP
-                      <input  type="text" pInputText formControlName="curp"  />
+                      <input type="text" pInputText formControlName="curp" />
                     </div>
                     <div class="ui-md-2">
                       <br />
@@ -266,18 +266,18 @@
                 <p-column field="institucion"></p-column>
                 <p-column field="grado"></p-column>
                 <p-column field="carrera"></p-column>
-                <p-column field="cedula" [style]="{'text-align':'center'}" >
+                <p-column field="cedula" [style]="{'text-align':'center'}">
                   <ng-template let-data="rowData" pTemplate="body">
-                    {{data.cedula}}  <a style="color:blue" (click)="openFile(data.cedulaurl)" *ngIf="data.cedulaurl != null"  > /{{data.cedulanombre}}</a>
+                    {{data.cedula}}  <a style="color:blue" (click)="openFile(data.cedulaurl)" *ngIf="data.cedulaurl != null"> /{{data.cedulanombre}}</a>
 
-</ng-template>
-                </p-column>
-                <p-column field="titulo"  [style]="{'text-align':'center'}">
-                  <ng-template let-data="rowData"  pTemplate="body">
-                   {{data.titulo}}  <a style="color:blue" (click)="openFile(data.titulourl)" *ngIf="data.titulourl != null" > /{{data.titulonombre}}</a>
                   </ng-template>
                 </p-column>
-                <p-column field="modificar" >
+                <p-column field="titulo" [style]="{'text-align':'center'}">
+                  <ng-template let-data="rowData" pTemplate="body">
+                    {{data.titulo}}  <a style="color:blue" (click)="openFile(data.titulourl)" *ngIf="data.titulourl != null"> /{{data.titulonombre}}</a>
+                  </ng-template>
+                </p-column>
+                <p-column field="modificar">
                   <ng-template let-estudio="rowData" pTemplate="body">
                     <button type="button" pButton (click)="editarEstudio(estudio)" icon="fa-refresh"></button>
                   </ng-template>
@@ -335,10 +335,10 @@
                       <!--cedula-->
                       <div class="ui-grid-row">
                         <div class="ui-md-5">
-                          <p-checkbox name="group1" value="true" label="Cedula" formControlName="cedula"></p-checkbox>
+                          <p-checkbox name="group1"  value="true"  [(ngModel)]="value" label="Cedula" formControlName="cedula"></p-checkbox>
                         </div>
                         <div class="ui-md-7">
-                          <file-app [visible]="doc[0].visible"  (Documento)="onUpload($event,'Cedula',0)"></file-app>
+                          <file-app [visible]="doc[0].visible" (Documento)="onUpload($event,'Cedula',0)"></file-app>
                         </div>
                       </div>
                       <!--Titulo-->
@@ -347,7 +347,7 @@
                           <p-checkbox name="group1" value="true" label="Titulo" formControlName="titulo"></p-checkbox>
                         </div>
                         <div class="ui-md-7">
-                          <file-app [visible]="doc[1].visible"  (Documento)="onUpload($event,'Titulo',1)"></file-app>
+                          <file-app [visible]="doc[1].visible" (Documento)="onUpload($event,'Titulo',1)"></file-app>
                         </div>
                       </div>
                     </div>
@@ -357,8 +357,8 @@
                 </div>
                 <p-footer>
                   <div class="ui-dialog-buttonpane ui-helper-clearfix">
-                    <button type="button" pButton icon="fa-close" (click)="crudEstudio(3)" label="Eliminar" style="width:13%" ></button>
-                    <button type="button" pButton icon="fa-check" (click)="crudEstudio(crudestudio)" label="Guardar" style="width:13%" ></button>
+                    <button type="button" pButton icon="fa-close" (click)="crudEstudio(3)" label="Eliminar" style="width:13%" *ngIf="crudestudio!=1"></button>
+                    <button type="button" pButton icon="fa-check" (click)="crudEstudio(crudestudio)" label="Guardar" style="width:13%"></button>
                   </div>
                 </p-footer>
               </p-dialog>
